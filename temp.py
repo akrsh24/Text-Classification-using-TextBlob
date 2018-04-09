@@ -16,7 +16,7 @@ db = mysql.connector.connect(
     user='root',
     password='root',
     host='localhost',
-    database='TESTDB',
+    database='db',
     buffered=True,
     autocommit=True)
 
@@ -33,7 +33,7 @@ cursor = db.cursor()
 #--------------------------------------------------------------------
 
 # execute the SQL query using execute() method.
-cursor.execute("select problem from employee")
+cursor.execute("select complaint from complaintform")
 
 data = cursor.fetchone()
 print(data)
@@ -70,7 +70,7 @@ if prob == pr:
 # if 3 < 9:
     print(prob)
     cursor.execute(
-        "UPDATE employee SET priority = 'HIGH' where priority = 'LOW'")
+        "UPDATE complaintform SET priority = 'HIGH' where priority = 'LOW'")
 
     db.commit()
     print("Row(s) were updated : " + str(cursor.rowcount))
