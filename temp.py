@@ -1,5 +1,5 @@
 #!/usr/bin/python
-#--------------------------------------------------------------------
+# --------------------------------------------------------------------
 
 import numpy as np
 import pandas as pd
@@ -9,7 +9,7 @@ import sys
 from textblob.classifiers import NaiveBayesClassifier
 from textblob import TextBlob
 
-#--------------------------------------------------------------------
+# --------------------------------------------------------------------
 
 # Open database connection
 db = mysql.connector.connect(
@@ -30,60 +30,48 @@ db = mysql.connector.connect(
 # prepare a cursor object using cursor() method
 cursor = db.cursor()
 
-#--------------------------------------------------------------------
+# --------------------------------------------------------------------
 
 # execute the SQL query using execute() method.
 cursor.execute("select complaint from complaintform")
 
-data = cursor.fetchone()
-print(data)
+data = cursor.fetchall()
+# print(data)
 
-#--------------------------------------------------------------------
+# --------------------------------------------------------------------
 
 with open('dataset.csv', 'r') as fp:
 
     classifier = NaiveBayesClassifier(fp, format="csv")
 
-blob = TextBlob(str(data), classifier=classifier)
-prob = blob.classify()
-print(prob)
-
-#--------------------------------------------------------------------
-
-# if blob.classify() == "neg":
-# Prepare SQL query to UPDATE required records
-#     sql = "UPDATE employee SET priority = 'HIGH'"
-
-# else:
-#      sql = "UPDATE EMPLOYEE SET priority = 'LOW'"
-
-# cursor.execute(sql)
-#db.commit()
-
-#try:
-#curso r = db.cursor()
-
-# Execute the SQL command
-# print(blob.classify())
-pr="neg"
-if prob == pr:
-# if 3 < 9:
+for row in data:
+    # print(row)
+    blob = TextBlob(str(row), classifier=classifier)
+    prob = blob.classify()
+    # print(prob)
+    pr = "neg"
+    status = "HIGH"
+    # st = str(row)
+    print(row)
     print(prob)
-    cursor.execute(
-        "UPDATE complaintform SET priority = 'HIGH' where priority = 'LOW'")
+    if prob == pr:
+        # if 3 < 9:
+        # print(prob)
+        stmt = "UPDATE complaintform SET priority ='HIGH' where complaint='%s'" % (row)
+        cursor.execute(stmt)
 
-    db.commit()
-    print("Row(s) were updated : " + str(cursor.rowcount))
+        db.commit()
+        print("Row(s) were updated : " + str(cursor.rowcount))
 
 # cursor.execute(sql)
 # # Commit your changes in the database
 # db.commit()
 
-#except:
+# except:
 # Rollback in case there is any error
 #    db.rollback()
 
-#--------------------------------------------------------------------
+# --------------------------------------------------------------------
 
 # disconnect from server
 db.close()

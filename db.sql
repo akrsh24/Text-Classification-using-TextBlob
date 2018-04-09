@@ -1,24 +1,22 @@
-drop database TESTDB ;
+create  database db;
 
-create database TESTDB;
+use db;
 
-use TESTDB;
-
-
-create table employee(
-pname varchar(35),
-problem varchar(50),
-priority varchar(5)
+create table complaintform(
+issuearea varchar(25),
+postdate date,
+complaint varchar(25)
 );
 
-			
+insert into db.complaintform values('delhi', '2018-11-11', 'Enhanced security in the area', 'LOW');
+insert into db.complaintform values('east delhi', '2018-02-02', 'Festive celebrations in the society', 'LOW');
+insert into db.complaintform values('east noida', '2018-02-01', 'No parking facilities in the area', 'LOW');
+insert into db.complaintform values('delhi', '2018-11-11', 'Fights between children in mainarea', 'LOW');
+insert into db.complaintform values('delhi', '2018-11-11', 'No cleaning check of swimming pool of area', 'LOW');
+insert into db.complaintform values('delhi', '2018-11-11', 'No power supply cut in the area', 'LOW');
+insert into db.complaintform values('delhi', '2018-11-11', 'Need proper management', 'LOW');
 
-select * from TESTDB.employee;
 
-insert into TESTDB.employee values("Akarsh Srivastava",
-"No water supply from Monday","LOW");
-insert into TESTDB.employee values("Anushka Gupta",
-"Improved parking facilities in the area","LOW");
+select * from db.complaintform;
 
-
-    
+UPDATE complaintform SET priority = 'LOW' where complaint="Need proper management"

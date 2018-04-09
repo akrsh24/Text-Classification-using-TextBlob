@@ -1,0 +1,6 @@
+pip install -U textblob
+$ python -m textblob.download_corpora
+
+pip install mysql-connector
+
+pip install django
