@@ -1,3 +1,4 @@
+
 #!/usr/bin/python
 # --------------------------------------------------------------------
 
@@ -15,7 +16,7 @@ from textblob import TextBlob
 db = mysql.connector.connect(
     user='root',
     password='root',
-    host='127.0.0.1',
+    host='localhost',
     database='db',
     buffered=True,
     autocommit=True)
@@ -52,7 +53,7 @@ for row in data:
     pr = "neg"
     status = "HIGH"
     # st = str(row)
-    print(row)
+    # print(row)
     print(prob)
     if prob == pr:
         # if 3 < 9:
@@ -61,7 +62,7 @@ for row in data:
         cursor.execute(stmt)
 
         db.commit()
-        print("Row(s) were updated : " + str(cursor.rowcount))
+        # print("Row(s) were updated : " + str(cursor.rowcount))
 
 # cursor.execute(sql)
 # # Commit your changes in the database
