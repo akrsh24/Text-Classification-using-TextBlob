@@ -15,7 +15,7 @@ from textblob import TextBlob
 db = mysql.connector.connect(
     user='root',
     password='root',
-    host='localhost',
+    host='127.0.0.1',
     database='db',
     buffered=True,
     autocommit=True)
