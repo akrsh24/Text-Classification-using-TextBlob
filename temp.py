@@ -42,7 +42,6 @@ data = cursor.fetchall()
 # --------------------------------------------------------------------
 
 with open('dataset.csv', 'r') as fp:
-
     classifier = NaiveBayesClassifier(fp, format="csv")
 
 for row in data:

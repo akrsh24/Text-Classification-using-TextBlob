@@ -60,11 +60,8 @@ for row in data:
         stmt = "UPDATE complaintform SET priority ='HIGH' where complaint='%s'" % (row)
         cursor.execute(stmt)
 
-    else:
-        stmt = "UPDATE complaintform SET priority ='LOW' where complaint='%s'" % (row)
-        cursor.execute(stmt)
-    db.commit()
-        # print("Row(s) were updated : " + str(cursor.rowcount))
+        db.commit()
+        print("Row(s) were updated : " + str(cursor.rowcount))
 
 # cursor.execute(sql)
 # # Commit your changes in the database

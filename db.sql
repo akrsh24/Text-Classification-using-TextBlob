@@ -25,3 +25,6 @@ select * from db.complaintform;
 UPDATE complaintform SET priority = 'LOW' where priority='HIGH'
 
 drop database db;
+
+
+
