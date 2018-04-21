@@ -1,4 +1,3 @@
-
 #!/usr/bin/python
 # --------------------------------------------------------------------
 
@@ -6,7 +5,7 @@ import numpy as np
 import pandas as pd
 import mysql.connector
 import sys
-
+import csv
 from textblob.classifiers import NaiveBayesClassifier
 from textblob import TextBlob
 
@@ -37,39 +36,42 @@ cursor = db.cursor()
 cursor.execute("select complaint from complaintform")
 
 data = cursor.fetchall()
-# print(data)
 
 # --------------------------------------------------------------------
 
-with open('dataset.csv', 'r') as fp:
-    classifier = NaiveBayesClassifier(fp, format="csv")
+with open('dataset_test.csv', 'r') as fp:
 
+    classifier = NaiveBayesClassifier(fp, format="csv")
+    
 for row in data:
     # print(row)
-    blob = TextBlob(str(row), classifier=classifier)
+    blob = TextBlob("No water supply", classifier=classifier)
     prob = blob.classify()
-    # print(prob)
     pr = "neg"
     status = "HIGH"
-    # st = str(row)
-    # print(row)
+    print(row)  
     print(prob)
-    if prob == pr:
-        # if 3 < 9:
-        # print(prob)
-        stmt = "UPDATE complaintform SET priority ='HIGH' where complaint='%s'" % (row)
-        cursor.execute(stmt)
+    # if prob == pr:
+    #     stmt = "UPDATE complaintform SET priority ='HIGH' where complaint='%s'" % (
+    #         row)
+    #     cursor.execute(stmt)
 
-        db.commit()
-        # print("Row(s) were updated : " + str(cursor.rowcount))
+    # else:
+    #     stmt = "UPDATE complaintform SET priority ='LOW' where complaint='%s'" % (
+    #         row)
+    #     cursor.execute(stmt)
+        
+    db.commit()
+    # print("Row(s) were updated : " + str(cursor.rowcount))
 
-# cursor.execute(sql)
-# # Commit your changes in the database
-# db.commit()
+    classifier.show_informative_features(5)
 
-# except:
-# Rollback in case there is any error
-#    db.rollback()
+    # csvRow = ''.join(row)
+    # print(csvRow)
+    # fields = [csvRow, prob]
+    # with open(r'dataset_test.csv', 'a') as f:
+    #    writer = csv.writer(f)
+    #    writer.writerow(fields)
 
 # --------------------------------------------------------------------
 
